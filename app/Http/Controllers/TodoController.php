@@ -50,7 +50,7 @@ class TodoController extends Controller
      */
     public function show(Todo $todo)
     {
-        //
+        return Inertia::render("Todo/Show", ['todo' => $todo]);
     }
 
     /**
@@ -66,7 +66,13 @@ class TodoController extends Controller
      */
     public function update(Request $request, Todo $todo)
     {
-        //
+        $this->validate($request, [
+            "title"=>"required",
+            "description"=>"required"
+        ]);
+        $data = $request->only(["title","description"]);
+        $todo->update($data);
+        return redirect()->route("home")->with("message","Successfully Updated")->with("type","success");
     }
 
     /**
