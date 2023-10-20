@@ -37,7 +37,6 @@ class TodoController extends Controller
     {
         $this->validate($request, [
             "title"=>"required",
-            "description"=>"required"
         ]);
         $data = $request->only(['title', 'description']);
         $data['user_id'] = Auth::user()->id;
@@ -61,14 +60,23 @@ class TodoController extends Controller
         //
     }
 
+    public function updateStatus(Request $todo){
+        $todo = Todo::find($todo->id);
+        if($todo){
+            $status = ($todo->status=='pending')?'completed' : 'pending';
+            $todo->status = $status;
+            $todo->save();
+        }
+        return redirect()->back();
+    }
+
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, Todo $todo)
     {
         $this->validate($request, [
-            "title"=>"required",
-            "description"=>"required"
+            "title"=>"required"
         ]);
         $data = $request->only(["title","description"]);
         $todo->update($data);
