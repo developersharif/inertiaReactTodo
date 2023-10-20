@@ -12,8 +12,8 @@ export default function Dashboard({ auth ,todos}) {
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                        <b>Todo List goes here</b>
-                        <ul>
+                        {(todos.length ==0) ? (<div><p>No todos available</p></div>) :
+                       ( <ul>
                         {todos && todos.map((todo) => (
                             <div className='flex justify-between p-5' key={todo.id}>
                                 <li>{todo.title}
@@ -27,7 +27,8 @@ export default function Dashboard({ auth ,todos}) {
         </span>
                             </div>
       ))}
-                        </ul>
+                        </ul>)}
+
                     </div>
                 </div>
             </div>
