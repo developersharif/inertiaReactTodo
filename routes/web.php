@@ -31,6 +31,7 @@ Route::resource("/todo",TodoController::class)->names([
     'destroy' => 'todo.destroy',
 ])->middleware("auth");
 
+Route::post('/update-todo-status',[TodoController::class,'updateStatus'])->name('todoStatus.update');
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
