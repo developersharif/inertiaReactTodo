@@ -92,6 +92,7 @@ export default function Login({ status, canResetPassword }) {
                     </PrimaryButton>
                 </div>
             </form>
+            <Link href={route('register')}>Create an account</Link>
         </GuestLayout>
     );
 }

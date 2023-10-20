@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TodoController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -16,18 +17,19 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+Route::get('/',[TodoController::class,'index'])->name("home")->middleware("auth");
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [TodoController::class,'index'])->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::resource("/todo",TodoController::class)->names([
+    'create' => 'todo.create',
+    'store' => 'todo.store',
+    'index' => 'todo.index',
+    'show' => 'todo.show',
+    'edit' => 'todo.edit',
+    'update' => 'todo.update',
+    'destroy' => 'todo.destroy',
+])->middleware("auth");
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
