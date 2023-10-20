@@ -21,7 +21,7 @@ export default function Dashboard({ auth ,todos}) {
         {todo.description}
         </li>
         <span>
-        <Link href={`/todo/${todo.id}'`} as="button" type="button" className='m-2'>Edit</Link>
+        <Link href={`/todo/${todo.id}`} as="button" type="button" className='m-2'>Edit</Link>
 
         <Link href={`/todo/${todo.id}`} method="delete" as="button" type="button">Delete</Link>
         </span>
