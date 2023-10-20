@@ -16,8 +16,8 @@ return new class extends Migration
             $table->bigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('title');
-            $table->string('description');
-            $table->string('status')->default("active");
+            $table->string('description')->nullable();
+            $table->string('status')->default("pending");
             $table->string("order")->default(0);
             $table->timestamps();
         });
